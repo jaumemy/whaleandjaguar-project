@@ -6,7 +6,32 @@
   </head>
   <body>
 
-    {{dashboard}}
+    <p>' Datos Covid-19 globales en los últimos siete días '</p>
+    <p>
+      Casos confirmados: {{confirmados}} <br>
+      Recuperados: {{recuperados}} <br>
+      Muertes: {{muertes}} <br>
+      Activos: {{activos}} <br>
+      Críticos: {{criticos}} <br>
+    </p>
+
+
+    <p>'  Datos de Covid-19 por país  '</p>
+
+  <form action="{% url 'dashboard:register' %}" method="POST">
+    {% csrf_token %}
+    <label for="countries">Elige un país:</label>
+    <select name="countries" id="countries">
+      <option value="it">Italia</option>
+      <option value="es">España</option>
+      <option value="al">Alemania</option>
+      <option value="co">Colombia</option>
+    </select>
+    <br><br>
+    <input type="submit" value="Ok">
+  </form>
+
+  {{pk}}
 
   </body>
 </html>

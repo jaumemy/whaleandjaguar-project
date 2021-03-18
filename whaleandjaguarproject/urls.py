@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('dashboard/', include('dashboard.urls')),
-    path('', RedirectView.as_view(url='dashboard', permanent=True)),
+    path('', RedirectView.as_view(url='dashboard/global', permanent=True)),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
