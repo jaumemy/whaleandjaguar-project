@@ -2,11 +2,17 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Whale & Jaguar Project</title>
+    <title>Covid19 Dashboard</title>
   </head>
   <body>
 
-    <p>' Datos Covid-19 globales en los últimos siete días '</p>
+    <br>
+
+    <h3> Buenos días, hoy es 16 de julio del 2020</h3>
+
+    <br>
+
+    <h3>' Datos Covid-19 globales en los últimos siete días '</h3>
     <p>
       Casos confirmados: {{confirmados}} <br>
       Recuperados: {{recuperados}} <br>
@@ -15,23 +21,43 @@
       Críticos: {{criticos}} <br>
     </p>
 
+    <br>
 
-    <p>'  Datos de Covid-19 por país  '</p>
+    <h3>'  Datos de Covid-19 por país  '</h3>
 
-  <form action="{% url 'dashboard:register' %}" method="POST">
+  <form action="" method="POST">
     {% csrf_token %}
     <label for="countries">Elige un país:</label>
-    <select name="countries" id="countries">
-      <option value="it">Italia</option>
-      <option value="es">España</option>
-      <option value="al">Alemania</option>
-      <option value="co">Colombia</option>
-    </select>
+    <select name="selected_country">
+        <option style="display:none">Selecciona...</option>
+      {% for country in list_of_countries %}
+        <option> {{country}} </option>
+      {% endfor %}
     <br><br>
-    <input type="submit" value="Ok">
+    <input type="submit" value="Consultar">
+    </select>
   </form>
 
-  {{pk}}
+  <br>
+
+  {{nombre_pais}}
+
+  <p>
+    Casos Confirmados: {{confirmados_total_pais}} <br>
+    Recuperados: {{recuperados_total_pais}} <br>
+    Muertes: {{muertes_total_pais}} <br>
+    Críticos: {{criticos_total_pais}} <br>
+    <br>
+    Confirmados hoy: {{confirmados_dia_pais}} <br>
+    Recuperados hoy: {{recuperados_dia_pais}} <br>
+    Muertes hoy: {{muertes_dia_pais}} <br>
+    Activos hoy: {{activos_dia_pais}} <br>
+
+  </p>
+
+
+
+
 
   </body>
 </html>
