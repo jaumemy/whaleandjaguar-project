@@ -6,27 +6,27 @@
   </head>
   <body>
 
-    <p>Login page</p>
+    <p>Inició de sesión</p>
 
     <form class="" action="{% url 'login' %}" method="POST">
       {% csrf_token %}
 
       <table>
         <tr>
-          <td>{{ form.username.label_tag }}</td>
+          <td>Usuario</td>
           <td>{{ form.username }}</td>
         </tr>
         <tr>
-          <td>{{ form.password.label_tag }}</td>
+          <td>Contraseña</td>
           <td>{{ form.password }}</td>
         </tr>
       </table>
 
-      <input type="submit" value="login" />
+      <input type="submit" value="Iniciar sesión" />
       <input type="hidden" name="next" value="{{ next }}" />
     </form>
 
-    <p> Don't have an account? <a href="{% url 'dashboard:register' %}" class="ml-2">Register</a> </p>
+    <p> No tienes cuenta? <a href="{% url 'dashboard:register' %}" class="ml-2">Registrase</a> </p>
 
 
   </body>

@@ -6,7 +6,7 @@
   </head>
   <body>
 
-    <p>Register Page</p>
+    <p>Registro de usuario</p>
 
     <form class="" action="{% url 'dashboard:register' %}" method="POST">
 
@@ -14,27 +14,31 @@
 
       <table>
         <tr>
-          <td>{{ form.username.label_tag }}</td>
+          <td>Usuario</td>
           <td>{{ form.username }}</td>
         </tr>
         <tr>
-          <td>{{ form.email.label_tag }}</td>
+          <td>Email</td>
           <td>{{ form.email }}</td>
         </tr>
         <tr>
-          <td>{{ form.password1.label_tag }}</td>
+          <td>Contraseña</td>
           <td>{{ form.password1 }}</td>
         </tr>
         <tr>
-          <td>{{ form.password2.label_tag }}</td>
+          <td>Repetir contraseña</td>
           <td>{{ form.password2 }}</td>
         </tr>
       </table>
 
-      <input type="submit" value="register" />
+      <input type="submit" value="Registrarse" />
       <input type="hidden" name="next" value="{{ next }}" />
 
     </form>
+
+    <p> Ya tienes cuenta? <a href="{% url 'login' %}" >Inicia sesión</a> </p>
+
+    {{form.errors}}
 
   </body>
 </html>

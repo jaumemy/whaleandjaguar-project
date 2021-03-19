@@ -29,7 +29,7 @@ def dashboard(request):
 
     # Creo un timer para intentar optimizar el tiempo de ejecución del
     # código teniendo en cuenta la limitación de la API Free 1 request/segundo
-    # Calculo el tiempo de espara 1.15s porque con menos a veces no funcionaba
+    # Calculo el tiempo de espara 1.1s porque con menos a veces no funcionaba
 
     t = Timer()
     t.start()
@@ -72,8 +72,8 @@ def dashboard(request):
     querystring_currentdate = {"date":"2020-06-16"}
 
     difftime = t.stop()
-    if difftime < 1.15:
-        time.sleep(1.15-difftime)
+    if difftime < 1.1:
+        time.sleep(1.1-difftime)
 
     response_sevendaysago = requests.request(
         "GET", url, headers=headers, params=querystring_sevendaysago).json()
@@ -81,8 +81,8 @@ def dashboard(request):
     t.start()
 
     difftime = t.stop()
-    if difftime < 1.15:
-        time.sleep(1.15-difftime)
+    if difftime < 1.1:
+        time.sleep(1.1-difftime)
 
     response_currentdate = requests.request(
         "GET", url, headers=headers, params=querystring_currentdate).json()
@@ -147,8 +147,8 @@ def dashboard(request):
         querystring_countrydata = {"code":selected_country_id}
 
         difftime = t.stop()
-        if difftime < 1.15:
-            time.sleep(1.15-difftime)
+        if difftime < 1.1:
+            time.sleep(1.1-difftime)
 
         response_countrydata = requests.request(
             "GET", url_countrydata, headers=headers, params=querystring_countrydata).json()
@@ -164,8 +164,8 @@ def dashboard(request):
         querystring_countrydaily = {"date":"2020-06-16","code":selected_country_id}
 
         difftime = t.stop()
-        if difftime < 1.15:
-            time.sleep(1.15-difftime)
+        if difftime < 1.1:
+            time.sleep(1.1-difftime)
 
         response_countrydaily = requests.request(
             "GET", url_countrydaily, headers=headers, params=querystring_countrydaily).json()
@@ -181,17 +181,31 @@ def dashboard(request):
         criticos_total_pais = response_countrydata[0]["critical"]
         muertes_total_pais = response_countrydata[0]["deaths"]
 
-        confirmados_dia_pais = response_countrydaily[0]["provinces"][0]["confirmed"]
-        recuperados_dia_pais = response_countrydaily[0]["provinces"][0]["recovered"]
-        muertes_dia_pais = response_countrydaily[0]["provinces"][0]["deaths"]
-        activos_dia_pais = response_countrydaily[0]["provinces"][0]["active"]
+        # El endpoint no devuelve datos para ciertos países
+
+        if len(response_countrydaily[0]["provinces"][0]) > 1:
+
+            confirmados_dia_pais = response_countrydaily[0]["provinces"][0]["confirmed"]
+            recuperados_dia_pais = response_countrydaily[0]["provinces"][0]["recovered"]
+            muertes_dia_pais = response_countrydaily[0]["provinces"][0]["deaths"]
+            activos_dia_pais = response_countrydaily[0]["provinces"][0]["active"]
+
+        else:
+            confirmados_dia_pais = "No hay datos"
+            recuperados_dia_pais = "No hay datos"
+            muertes_dia_pais = "No hay datos"
+            activos_dia_pais = "No hay datos"
+
 
 
 
         # Traducción del país seleccionado al español
 
         translator = google_translator()
-        nombre_pais = translator.translate(selected_country, lang_src="en", lang_tgt="es")
+        if selected_country != 'China':
+            nombre_pais = translator.translate(selected_country, lang_src="en", lang_tgt="es")
+        else:
+            nombre_pais = 'China'  # Traducción estúpida ... a porcelana
 
 
 
@@ -199,6 +213,7 @@ def dashboard(request):
 
         context_selected_country = {
             'nombre_pais': nombre_pais,
+            'selected_country': selected_country,
             'confirmados_total_pais': confirmados_total_pais,
             'recuperados_total_pais': recuperados_total_pais,
             'criticos_total_pais': criticos_total_pais,

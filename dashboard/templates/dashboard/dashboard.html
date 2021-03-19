@@ -8,7 +8,9 @@
 
     <br>
 
-    <h3> Buenos días, hoy es 16 de julio del 2020</h3>
+
+    <h3> Buenos días "{{request.user}}" , hoy es 16 de julio del 2020 - <a href="{% url 'logout' %}"> Cerrar sesión</a> </h3> 
+
 
     <br>
 
@@ -42,7 +44,7 @@
 
   {% if nombre_pais %}
 
-    {{nombre_pais}}
+    {{nombre_pais}} - {{selected_country}}
 
     <p>
       Casos Confirmados: {{confirmados_total_pais}} <br>
