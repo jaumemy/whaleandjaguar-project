@@ -40,20 +40,24 @@
 
   <br>
 
-  {{nombre_pais}}
+  {% if nombre_pais %}
 
-  <p>
-    Casos Confirmados: {{confirmados_total_pais}} <br>
-    Recuperados: {{recuperados_total_pais}} <br>
-    Muertes: {{muertes_total_pais}} <br>
-    Críticos: {{criticos_total_pais}} <br>
-    <br>
-    Confirmados hoy: {{confirmados_dia_pais}} <br>
-    Recuperados hoy: {{recuperados_dia_pais}} <br>
-    Muertes hoy: {{muertes_dia_pais}} <br>
-    Activos hoy: {{activos_dia_pais}} <br>
+    {{nombre_pais}}
 
-  </p>
+    <p>
+      Casos Confirmados: {{confirmados_total_pais}} <br>
+      Recuperados: {{recuperados_total_pais}} <br>
+      Muertes: {{muertes_total_pais}} <br>
+      Críticos: {{criticos_total_pais}} <br>
+      <br>
+      Confirmados hoy: {{confirmados_dia_pais}} <br>
+      Recuperados hoy: {{recuperados_dia_pais}} <br>
+      Muertes hoy: {{muertes_dia_pais}} <br>
+      Activos hoy: {{activos_dia_pais}} <br>
+
+    </p>
+
+  {% endif %}
 
 
 
