@@ -1,0 +1,78 @@
+.container.login{
+  background-color: rgba(36, 41, 46, 0.8);
+  padding: 15px 30px;
+  border-radius: 5px;
+  color: rgba(255, 255, 255, 0.80);
+  font-size: 0.75rem;
+}
+
+.container.login h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.container.login a{
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.60);
+}
+
+a:visited {
+  color: grey;
+}
+
+.btn {
+  cursor: pointer;
+  display: inline-block;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.80);
+  padding: 15px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  border: 0;
+  border-radius: 2px;
+  color: #000;
+}
+
+.btn:focus {
+  outline: 0;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.text {
+  margin-top: 30px;
+  color: rgba(255, 255, 255, 0.80);
+}
+
+
+.form-control {
+  position: relative;
+  margin: 20px 0 40px;
+  width: 300px;
+}
+
+.form-control input {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 1px #fff solid;
+  display: block;
+  width: 100%;
+  padding: 15px 0;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.form-control input:focus,
+.form-control input:valid {
+  outline: 0;
+  border-bottom-color: #fff;
+}
+
+.form-control label {
+  position: absolute;
+  top: -15px;
+  left: 0;
+  pointer-events: none;
+}

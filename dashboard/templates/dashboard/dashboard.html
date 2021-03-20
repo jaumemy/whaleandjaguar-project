@@ -10,14 +10,14 @@
 
     <div class="card">
 
-      <h3>Datos globales en los últimos siete días</h3>
+      <h3>DATOS GLOBALES EN LOS ÚLTIMOS 7 DÍAS</h3>
       <br>
       <ul>
-        <li>Casos confirmados: {{confirmados}}</li>
-        <li>Recuperados: {{recuperados}}</li>
-        <li>Muertes: {{muertes}}</li>
-        <li>Activos: {{activos}}</li>
-        <li>Críticos: {{criticos}}</li>
+        <li>Casos confirmados: &nbsp {{confirmados}}</li>
+        <li>Recuperados: &nbsp {{recuperados}}</li>
+        <li>Muertes: &nbsp {{muertes}}</li>
+        <li>Activos: &nbsp {{activos}}</li>
+        <li>Críticos: &nbsp {{criticos}}</li>
       </ul>
 
     </div>
@@ -25,45 +25,54 @@
     <br>
     <br>
 
-    <h3>Datos por país para hoy</h3>
+    <h3>DATOS POR PAÍS EN LAS ÚLTIMAS 24 HORAS</h3>
 
     <br>
 
+
     <form action="" method="POST">
+
       {% csrf_token %}
-      <label for="countries">Elige un país:</label>
-      <select class="form-select" name="selected_country">
-          <option style="display:none">Selecciona...</option>
+
+      <label class="elige" for="countries">Selecciona:</label>
+
+      <select class="form-select form-select-sm" id="select" name="selected_country">
+
+        <option style="display:none">Lista de países</option>
+
         {% for country in list_of_countries %}
           <option> {{country}} </option>
         {% endfor %}
-      <br><br>
-      <input type="submit" value="Consultar">
+
       </select>
+
+      <button class="btn">Consultar</button>
+
     </form>
+
 
     <br>
 
+
     {% if nombre_pais %}
-
-      {{nombre_pais}} - {{selected_country}}
-
       <br>
+
+      <h4 class="pais">{{nombre_pais}} - {{selected_country}}</h4>
 
       <div class="countrydata">
 
         <ul>
-          <li>Casos Confirmados: {{confirmados_total_pais}}</li>
-          <li>Recuperados: {{recuperados_total_pais}}</li>
-          <li>Muertes: {{muertes_total_pais}}</li>
-          <li>Críticos: {{criticos_total_pais}}</li>
+          <li>Casos Confirmados total: &nbsp {{confirmados_total_pais}}</li>
+          <li>Recuperados total: &nbsp {{recuperados_total_pais}}</li>
+          <li>Muertes total: &nbsp {{muertes_total_pais}}</li>
+          <li>Críticos total: &nbsp {{criticos_total_pais}}</li>
         </ul>
 
         <ul>
-          <li>Confirmados hoy: {{confirmados_dia_pais}}</li>
-          <li>Recuperados hoy: {{recuperados_dia_pais}}</li>
-          <li>Muertes hoy: {{muertes_dia_pais}}</li>
-          <li>Activos hoy: {{activos_dia_pais}}</li>
+          <li>Casos Confirmados hoy: &nbsp {{confirmados_dia_pais}}</li>
+          <li>Recuperados hoy: &nbsp {{recuperados_dia_pais}}</li>
+          <li>Muertes hoy: &nbsp {{muertes_dia_pais}}</li>
+          <li>Activos hoy: &nbsp {{activos_dia_pais}}</li>
         </ul>
 
       </div>
