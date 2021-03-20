@@ -21,7 +21,7 @@
         {# <li> <p class="navbarTitle">COVID-19 DASHBOARD</p> </li> #}
         <ul>
           {% if user.is_authenticated %}
-          <li><a href="#">Hola, {{request.user}}!</a></li>
+          <li>Hola, {{request.user}}!</li>
           <li><a href="{% url 'logout' %}">Cerrar sesión</a> </li>
           {% else %}
             <li><a href="{% url 'login' %}">Iniciar sesión</a> </li>

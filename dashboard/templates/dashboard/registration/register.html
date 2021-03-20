@@ -2,38 +2,51 @@
 
 {% block content %}
 
-    <p>Registro de usuario</p>
+{% load static %}
 
-    <form class="" action="{% url 'dashboard:register' %}" method="POST">
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+
+
+<div class="container login">
+
+    <h1> </h1>
+
+    <form action="{% url 'dashboard:register' %}" method="POST">
 
       {% csrf_token %}
 
-      <table>
-        <tr>
-          <td>Usuario</td>
-          <td>{{ form.username }}</td>
-        </tr>
-        <tr>
-          <td>Email</td>
-          <td>{{ form.email }}</td>
-        </tr>
-        <tr>
-          <td>Contraseña</td>
-          <td>{{ form.password1 }}</td>
-        </tr>
-        <tr>
-          <td>Repetir contraseña</td>
-          <td>{{ form.password2 }}</td>
-        </tr>
-      </table>
+      <div class="form-control">
+        <label>Usuario</label>
+        {{form.username}}
+      </div>
 
-      <input type="submit" value="Registrarse" />
-     
+      <div class="form-control">
+        <label>Email</label>
+        {{form.email}}
+      </div>
 
-    </form>
+      <div class="form-control">
+        <label>Contraseña</label>
+        {{form.password1}}
+      </div>
 
-    <p> Ya tienes cuenta? <a href="{% url 'login' %}" >Inicia sesión</a> </p>
+      <div class="form-control">
+        <label>Repetir contraseña</label>
+        {{form.password2}}
+      </div>
 
-    {{form.errors}}
+      <button class="btn">Crear cuenta</button>
+
+
+
+      <p class="text">Ya tienes cuenta? &nbsp
+         <a class="rlink" href="{% url 'login' %}"> Iniciar sesión</a> </p>
+
+
+      </form>
+  </div>
+
+  {{form.errors}}
+
 
 {% endblock %}

@@ -2,27 +2,41 @@
 
 {% block content %}
 
-    <p>Inició de sesión</p>
+{% load static %}
 
-    <form class="" action="{% url 'login' %}" method="POST">
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+
+<div class="container login">
+
+    <h1> </h1>
+
+    <form action="{% url 'login' %}" method="POST">
+
       {% csrf_token %}
 
-      <table>
-        <tr>
-          <td>Usuario</td>
-          <td>{{ form.username }}</td>
-        </tr>
-        <tr>
-          <td>Contraseña</td>
-          <td>{{ form.password }}</td>
-        </tr>
-      </table>
+      <div class="form-control">
+        <label>Usuario</label>
+        {{form.username}}
+      </div>
 
-      <input type="submit" value="Iniciar sesión" />
-      
-    </form>
+      <div class="form-control">
+        <label>Contraseña</label>
+        {{form.password}}
+      </div>
 
-    <p> No tienes cuenta? <a href="{% url 'dashboard:register' %}" class="ml-2">Registrarse</a> </p>
+      <button class="btn">Iniciar sesión</button>
+
+
+
+      <p class="text">No tienes cuenta? &nbsp
+         <a class="rlink" href="{% url 'dashboard:register' %}"> Crear cuenta</a> </p>
+
+
+      </form>
+</div>
+
+
 
 
 {% endblock %}
