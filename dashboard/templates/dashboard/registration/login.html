@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+{% extends "base_generic.html" %}
+
+{% block content %}
 
     <p>Inició de sesión</p>
 
@@ -23,11 +19,10 @@
       </table>
 
       <input type="submit" value="Iniciar sesión" />
-      <input type="hidden" name="next" value="{{ next }}" />
+      
     </form>
 
-    <p> No tienes cuenta? <a href="{% url 'dashboard:register' %}" class="ml-2">Registrase</a> </p>
+    <p> No tienes cuenta? <a href="{% url 'dashboard:register' %}" class="ml-2">Registrarse</a> </p>
 
 
-  </body>
-</html>
+{% endblock %}

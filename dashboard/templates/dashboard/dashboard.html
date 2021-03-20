@@ -1,69 +1,85 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Covid19 Dashboard</title>
-  </head>
-  <body>
+{% extends "base_generic.html" %}
+
+{% block content %}
 
     <br>
 
-
-    <h3> Buenos días "{{request.user}}" , hoy es 16 de julio del 2020 - <a href="{% url 'logout' %}"> Cerrar sesión</a> </h3> 
-
+    <h3 class="fecha"> Hoy es 16 de julio del 2020  </h3>
 
     <br>
 
-    <h3>' Datos Covid-19 globales en los últimos siete días '</h3>
-    <p>
-      Casos confirmados: {{confirmados}} <br>
-      Recuperados: {{recuperados}} <br>
-      Muertes: {{muertes}} <br>
-      Activos: {{activos}} <br>
-      Críticos: {{criticos}} <br>
-    </p>
+    <div class="card">
 
-    <br>
-
-    <h3>'  Datos de Covid-19 por país  '</h3>
-
-  <form action="" method="POST">
-    {% csrf_token %}
-    <label for="countries">Elige un país:</label>
-    <select name="selected_country">
-        <option style="display:none">Selecciona...</option>
-      {% for country in list_of_countries %}
-        <option> {{country}} </option>
-      {% endfor %}
-    <br><br>
-    <input type="submit" value="Consultar">
-    </select>
-  </form>
-
-  <br>
-
-  {% if nombre_pais %}
-
-    {{nombre_pais}} - {{selected_country}}
-
-    <p>
-      Casos Confirmados: {{confirmados_total_pais}} <br>
-      Recuperados: {{recuperados_total_pais}} <br>
-      Muertes: {{muertes_total_pais}} <br>
-      Críticos: {{criticos_total_pais}} <br>
+      <h3>Datos globales en los últimos siete días</h3>
       <br>
-      Confirmados hoy: {{confirmados_dia_pais}} <br>
-      Recuperados hoy: {{recuperados_dia_pais}} <br>
-      Muertes hoy: {{muertes_dia_pais}} <br>
-      Activos hoy: {{activos_dia_pais}} <br>
+      <ul>
+        <li>Casos confirmados: {{confirmados}}</li>
+        <li>Recuperados: {{recuperados}}</li>
+        <li>Muertes: {{muertes}}</li>
+        <li>Activos: {{activos}}</li>
+        <li>Críticos: {{criticos}}</li>
+      </ul>
 
-    </p>
+    </div>
 
-  {% endif %}
+    <br>
+    <br>
+
+    <h3>Datos por país para hoy</h3>
+
+    <br>
+
+    <form action="" method="POST">
+      {% csrf_token %}
+      <label for="countries">Elige un país:</label>
+      <select class="form-select" name="selected_country">
+          <option style="display:none">Selecciona...</option>
+        {% for country in list_of_countries %}
+          <option> {{country}} </option>
+        {% endfor %}
+      <br><br>
+      <input type="submit" value="Consultar">
+      </select>
+    </form>
+
+    <br>
+
+    {% if nombre_pais %}
+
+      {{nombre_pais}} - {{selected_country}}
+
+      <br>
+
+      <div class="countrydata">
+
+        <ul>
+          <li>Casos Confirmados: {{confirmados_total_pais}}</li>
+          <li>Recuperados: {{recuperados_total_pais}}</li>
+          <li>Muertes: {{muertes_total_pais}}</li>
+          <li>Críticos: {{criticos_total_pais}}</li>
+        </ul>
+
+        <ul>
+          <li>Confirmados hoy: {{confirmados_dia_pais}}</li>
+          <li>Recuperados hoy: {{recuperados_dia_pais}}</li>
+          <li>Muertes hoy: {{muertes_dia_pais}}</li>
+          <li>Activos hoy: {{activos_dia_pais}}</li>
+        </ul>
+
+      </div>
+
+    {% else %}
+
+      <br>
+
+      <div class="countrydata">
+
+      </div>
+
+    {% endif %}
 
 
 
 
 
-  </body>
-</html>
+{% endblock %}

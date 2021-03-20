@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  color: #000;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav {
+  position: fixed;
+  background-color: #24292e;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.nav .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.nav li {
+  color: #fff;
+  display: flex;
+  list-style-type: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav ul {
+  display: flex;
+  list-style-type: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 15px 15px;
+}
+
+.logo {
+  font-size: 1rem;
+  display: flex;
+  flex-direction: row;
+  color: #fff
+}
+
+.logo p {
+  font-size: 0.80rem;
+  transform: translateY(3px);
+}
+
+.logo i {
+  margin-right: 7.5px;
+  font-size: 1.75rem;
+}
+
+
+.card {
+  width: 800px;
+  background-color: rgba(36, 41, 46, 0.85);
+  border-radius: 5px;
+  display: flex;
+  padding: 3rem;
+  margin: 0 1.5rem;
+  flex-direction: column;
+  color: #fff;
+  align-items: center;
+}
+
+.countrydata {
+  width: 800px;
+  height: 150px;
+  display: flex;
+  padding: 3rem;
+  margin: 0 1.5rem;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.card ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.countrydata ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
