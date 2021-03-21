@@ -122,7 +122,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [Path.joinpath(BASE_DIR,"static")]
+STATICFILES_DIRS = [Path.joinpath(BASE_DIR,"dashboard/static")]
 
 LOGIN_REDIRECT_URL = '/'
 
