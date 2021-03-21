@@ -218,10 +218,20 @@ def dashboard(request):
         criticos_total_pais = response_countrydata[0]["critical"]
         muertes_total_pais = response_countrydata[0]["deaths"]
 
-        confirmados_dia_pais = response_countrydaily[0]["provinces"][0]["confirmed"]
-        recuperados_dia_pais = response_countrydaily[0]["provinces"][0]["recovered"]
-        muertes_dia_pais = response_countrydaily[0]["provinces"][0]["deaths"]
-        activos_dia_pais = response_countrydaily[0]["provinces"][0]["active"]
+        # El endpoint no devuelve datos para ciertos países
+
+        if len(response_countrydaily[0]["provinces"][0]) > 1:
+
+            confirmados_dia_pais = response_countrydaily[0]["provinces"][0]["confirmed"]
+            recuperados_dia_pais = response_countrydaily[0]["provinces"][0]["recovered"]
+            muertes_dia_pais = response_countrydaily[0]["provinces"][0]["deaths"]
+            activos_dia_pais = response_countrydaily[0]["provinces"][0]["active"]
+
+        else:
+            confirmados_dia_pais = "No hay datos"
+            recuperados_dia_pais = "No hay datos"
+            muertes_dia_pais = "No hay datos"
+            activos_dia_pais = "No hay datos"
 
 
         # Traducción del país seleccionado al español
