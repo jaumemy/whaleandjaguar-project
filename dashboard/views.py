@@ -29,7 +29,7 @@ def dashboard(request):
 
     # Creo un timer para intentar optimizar el tiempo de ejecución del
     # código teniendo en cuenta la limitación de la API Free 1 request/segundo
-    # Calculo el tiempo de espara 1.1s porque con menos a veces no funcionaba
+    # Calculo el tiempo de espara 1.2s porque con menos a veces no funcionaba
 
     t = Timer()
     t.start()
@@ -72,8 +72,8 @@ def dashboard(request):
     querystring_currentdate = {"date":"2020-06-16"}
 
     difftime = t.stop()
-    if difftime < 1.1:
-        time.sleep(1.1-difftime)
+    if difftime < 1.2:
+        time.sleep(1.2-difftime)
 
     response_sevendaysago = requests.request(
         "GET", url, headers=headers, params=querystring_sevendaysago).json()
@@ -81,8 +81,8 @@ def dashboard(request):
     t.start()
 
     difftime = t.stop()
-    if difftime < 1.1:
-        time.sleep(1.1-difftime)
+    if difftime < 1.2:
+        time.sleep(1.2-difftime)
 
     response_currentdate = requests.request(
         "GET", url, headers=headers, params=querystring_currentdate).json()
@@ -96,9 +96,12 @@ def dashboard(request):
     # Algoritmo que crea un nuevo diccionario con la diferencia entre
     #   el response de 7 días atrás y actual para todas las keys
 
-    # A veces la API no funciona bien
+    # A pesar del sistema de espera implementado, muchas veces la response devuelve
+    # "{'message': 'You have exceeded the rate limit per second for your plan, BASIC, '
+    #        'by the API provider'}"
+    # Por eso escribo este condicional
 
-    if len(response_currentdate[0]) > 1:
+    if len(response_currentdate[0]) > 1 and len(response_sevendaysago[0] > 1):
 
         for key in response_currentdate[0]:
             if key == "date":
@@ -159,8 +162,8 @@ def dashboard(request):
         querystring_countrydata = {"code":selected_country_id}
 
         difftime = t.stop()
-        if difftime < 1.1:
-            time.sleep(1.1-difftime)
+        if difftime < 1.2:
+            time.sleep(1.2-difftime)
 
         response_countrydata = requests.request(
             "GET", url_countrydata, headers=headers, params=querystring_countrydata).json()
@@ -176,8 +179,8 @@ def dashboard(request):
         querystring_countrydaily = {"date":"2020-06-16","code":selected_country_id}
 
         difftime = t.stop()
-        if difftime < 1.1:
-            time.sleep(1.1-difftime)
+        if difftime < 1.2:
+            time.sleep(1.2-difftime)
 
         response_countrydaily = requests.request(
             "GET", url_countrydaily, headers=headers, params=querystring_countrydaily).json()
