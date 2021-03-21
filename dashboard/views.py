@@ -96,18 +96,30 @@ def dashboard(request):
     # Algoritmo que crea un nuevo diccionario con la diferencia entre
     #   el response de 7 días atrás y actual para todas las keys
 
-    for key in response_currentdate[0]:
-        if key == "date":
-            pass  # No hace falta restar fechas
-        else:
-            response_week[key] = int(response_currentdate[0][key]) - int(response_sevendaysago[0][key])
+    # A veces la API no funciona bien
+
+    if len(response_currentdate[0]) > 1:
+
+        for key in response_currentdate[0]:
+            if key == "date":
+                pass  # No hace falta restar fechas
+            else:
+                response_week[key] = int(response_currentdate[0][key]) - int(response_sevendaysago[0][key])
 
 
-    confirmados = response_week["confirmed"]
-    recuperados = response_week["recovered"]
-    muertes = response_week["deaths"]
-    activos = response_week["active"]
-    criticos = response_week["critical"]
+        confirmados = response_week["confirmed"]
+        recuperados = response_week["recovered"]
+        muertes = response_week["deaths"]
+        activos = response_week["active"]
+        criticos = response_week["critical"]
+
+
+    else:
+        confirmados = "Fallo de la API"
+        recuperados = 'Actualiza de nuevo'
+        muertes = ''
+        activos = ''
+        criticos = ''
 
 
     context = {
