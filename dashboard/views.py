@@ -101,7 +101,7 @@ def dashboard(request):
     #        'by the API provider'}"
     # Por eso escribo este condicional
 
-    if len(response_currentdate[0]) > 1 and len(response_sevendaysago[0]) > 1):
+    if (len(response_currentdate[0]) > 1) and (len(response_sevendaysago[0]) > 1):
 
         for key in response_currentdate[0]:
             if key == "date":
