@@ -162,3 +162,12 @@ body {
 .pais {
   text-decoration: underline;
 }
+
+
+@media (max-width: 500px) {
+  .countrydata {
+    width: 500px;
+    font-size: 0.8rem;
+    justify-content: space-between;
+  }
+}

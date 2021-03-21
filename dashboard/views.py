@@ -24,16 +24,20 @@ def dashboard(request):
         'x-rapidapi-host': "covid-19-data.p.rapidapi.com"
         }
 
+    # Loop implementado en todas las requests para evitar la limitación
+    # de una request/segundo
+    # Una request exitosa devuelve una lista,
+
+
     response_allcountries = requests.request(
-        "GET", url_allcountries, headers=headers, timeout=10).json()
+        "GET", url_allcountries, headers=headers).json()
 
     # Creo un timer para intentar optimizar el tiempo de ejecución del
     # código teniendo en cuenta la limitación de la API Free 1 request/segundo
-    # Calculo el tiempo de espara 1.2s porque con menos a veces no funcionaba
+    # Calculo el tiempo de espara 1.2s.
 
     t = Timer()
     t.start()
-
 
     list_of_countries = []
 
@@ -68,6 +72,8 @@ def dashboard(request):
     # La última fecha para este endpoint sería el 2 de agosto del 2020
     # En funcionamiento normal del endpoint se habría usado la librería datetime
 
+
+
     querystring_sevendaysago = {"date":"2020-06-09"}
     querystring_currentdate = {"date":"2020-06-16"}
 
@@ -75,19 +81,31 @@ def dashboard(request):
     if difftime < 1.2:
         time.sleep(1.2-difftime)
 
-    response_sevendaysago = requests.request(
-        "GET", url, headers=headers, params=querystring_sevendaysago).json()
+
+    loop = True
+    while loop:
+        response_sevendaysago = requests.request(
+            "GET", url, headers=headers, params=querystring_sevendaysago).json()
+        if type(response_sevendaysago)!=dict:
+            loop = False
 
     t.start()
+
 
     difftime = t.stop()
     if difftime < 1.2:
         time.sleep(1.2-difftime)
 
-    response_currentdate = requests.request(
-        "GET", url, headers=headers, params=querystring_currentdate).json()
+
+    loop = True
+    while loop:
+        response_currentdate = requests.request(
+            "GET", url, headers=headers, params=querystring_currentdate).json()
+        if type(response_currentdate)!=dict:
+            loop = False
 
     t.start()
+
 
     response_week = {}
 
@@ -96,33 +114,20 @@ def dashboard(request):
     # Algoritmo que crea un nuevo diccionario con la diferencia entre
     #   el response de 7 días atrás y actual para todas las keys
 
-    # A pesar del sistema de espera implementado, muchas veces la response devuelve
-    # "{'message': 'You have exceeded the rate limit per second for your plan, BASIC, '
-    #        'by the API provider'}" en forma de diccionario
-    # Por eso escribo este condicional
-
-    if (type(response_currentdate)!=dict) and (type(response_sevendaysago)!=dict):
-
-        for key in response_currentdate[0]:
-            if key == "date":
-                pass  # No hace falta restar fechas
-            else:
-                response_week[key] = int(response_currentdate[0][key]) - int(response_sevendaysago[0][key])
 
 
-        confirmados = response_week["confirmed"]
-        recuperados = response_week["recovered"]
-        muertes = response_week["deaths"]
-        activos = response_week["active"]
-        criticos = response_week["critical"]
+    for key in response_currentdate[0]:
+        if key == "date":
+            pass  # No hace falta restar fechas
+        else:
+            response_week[key] = int(response_currentdate[0][key]) - int(response_sevendaysago[0][key])
 
 
-    else:
-        confirmados = "Fallo de la API"
-        recuperados = 'Actualiza de nuevo'
-        muertes = ''
-        activos = ''
-        criticos = ''
+    confirmados = response_week["confirmed"]
+    recuperados = response_week["recovered"]
+    muertes = response_week["deaths"]
+    activos = response_week["active"]
+    criticos = response_week["critical"]
 
 
     context = {
@@ -165,8 +170,13 @@ def dashboard(request):
         if difftime < 1.2:
             time.sleep(1.2-difftime)
 
-        response_countrydata = requests.request(
-            "GET", url_countrydata, headers=headers, params=querystring_countrydata).json()
+
+        loop = True
+        while loop:
+            response_countrydata = requests.request(
+                "GET", url_countrydata, headers=headers, params=querystring_countrydata).json()
+            if type(response_countrydata)!=dict:
+                loop = False
 
         t.start()
 
@@ -178,15 +188,19 @@ def dashboard(request):
 
         querystring_countrydaily = {"date":"2020-06-16","code":selected_country_id}
 
+
         difftime = t.stop()
         if difftime < 1.2:
             time.sleep(1.2-difftime)
 
-        response_countrydaily = requests.request(
-            "GET", url_countrydaily, headers=headers, params=querystring_countrydaily).json()
+        loop = True
+        while loop:
+            response_countrydaily = requests.request(
+                "GET", url_countrydaily, headers=headers, params=querystring_countrydaily).json()
+            if type(response_countrydaily)!=dict:
+                loop = False
 
         t.start()
-
 
 
         # Obtención datos de response
@@ -196,22 +210,10 @@ def dashboard(request):
         criticos_total_pais = response_countrydata[0]["critical"]
         muertes_total_pais = response_countrydata[0]["deaths"]
 
-        # El endpoint no devuelve datos para ciertos países
-
-        if len(response_countrydaily[0]["provinces"][0]) > 1:
-
-            confirmados_dia_pais = response_countrydaily[0]["provinces"][0]["confirmed"]
-            recuperados_dia_pais = response_countrydaily[0]["provinces"][0]["recovered"]
-            muertes_dia_pais = response_countrydaily[0]["provinces"][0]["deaths"]
-            activos_dia_pais = response_countrydaily[0]["provinces"][0]["active"]
-
-        else:
-            confirmados_dia_pais = "No hay datos"
-            recuperados_dia_pais = "No hay datos"
-            muertes_dia_pais = "No hay datos"
-            activos_dia_pais = "No hay datos"
-
-
+        confirmados_dia_pais = response_countrydaily[0]["provinces"][0]["confirmed"]
+        recuperados_dia_pais = response_countrydaily[0]["provinces"][0]["recovered"]
+        muertes_dia_pais = response_countrydaily[0]["provinces"][0]["deaths"]
+        activos_dia_pais = response_countrydaily[0]["provinces"][0]["active"]
 
 
         # Traducción del país seleccionado al español
