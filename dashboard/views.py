@@ -98,10 +98,10 @@ def dashboard(request):
 
     # A pesar del sistema de espera implementado, muchas veces la response devuelve
     # "{'message': 'You have exceeded the rate limit per second for your plan, BASIC, '
-    #        'by the API provider'}"
+    #        'by the API provider'}" en forma de diccionario
     # Por eso escribo este condicional
 
-    if (len(response_currentdate[0]) > 1) and (len(response_sevendaysago[0]) > 1):
+    if (type(response_currentdate)!=dict) and (type(response_sevendaysago)!=dict):
 
         for key in response_currentdate[0]:
             if key == "date":
