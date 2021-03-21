@@ -88,6 +88,8 @@ def dashboard(request):
             "GET", url, headers=headers, params=querystring_sevendaysago).json()
         if type(response_sevendaysago)!=dict:
             loop = False
+        else:
+            time.sleep(0.1)
 
     t.start()
 
@@ -103,6 +105,8 @@ def dashboard(request):
             "GET", url, headers=headers, params=querystring_currentdate).json()
         if type(response_currentdate)!=dict:
             loop = False
+        else:
+            time.sleep(0.1)
 
     t.start()
 
@@ -177,6 +181,8 @@ def dashboard(request):
                 "GET", url_countrydata, headers=headers, params=querystring_countrydata).json()
             if type(response_countrydata)!=dict:
                 loop = False
+            else:
+                time.sleep(0.1)
 
         t.start()
 
@@ -199,6 +205,8 @@ def dashboard(request):
                 "GET", url_countrydaily, headers=headers, params=querystring_countrydaily).json()
             if type(response_countrydaily)!=dict:
                 loop = False
+            else:
+                time.sleep(0.1)
 
         t.start()
 
