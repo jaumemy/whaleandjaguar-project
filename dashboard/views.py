@@ -24,16 +24,20 @@ def dashboard(request):
         'x-rapidapi-host': "covid-19-data.p.rapidapi.com"
         }
 
+    # Loop implementado en todas las requests para evitar la limitación
+    # de una request/segundo
+    # Una request exitosa devuelve una lista,
+
+
     response_allcountries = requests.request(
-        "GET", url_allcountries, headers=headers, timeout=10).json()
+        "GET", url_allcountries, headers=headers).json()
 
     # Creo un timer para intentar optimizar el tiempo de ejecución del
     # código teniendo en cuenta la limitación de la API Free 1 request/segundo
-    # Calculo el tiempo de espara 1.1s porque con menos a veces no funcionaba
+    # Calculo el tiempo de espara 1.2s.
 
     t = Timer()
     t.start()
-
 
     list_of_countries = []
 
@@ -68,26 +72,44 @@ def dashboard(request):
     # La última fecha para este endpoint sería el 2 de agosto del 2020
     # En funcionamiento normal del endpoint se habría usado la librería datetime
 
+
+
     querystring_sevendaysago = {"date":"2020-06-09"}
     querystring_currentdate = {"date":"2020-06-16"}
 
     difftime = t.stop()
-    if difftime < 1.1:
-        time.sleep(1.1-difftime)
+    if difftime < 1.2:
+        time.sleep(1.2-difftime)
 
-    response_sevendaysago = requests.request(
-        "GET", url, headers=headers, params=querystring_sevendaysago).json()
+
+    loop = True
+    while loop:
+        response_sevendaysago = requests.request(
+            "GET", url, headers=headers, params=querystring_sevendaysago).json()
+        if type(response_sevendaysago)!=dict:
+            loop = False
+        else:
+            time.sleep(0.1)
 
     t.start()
+
 
     difftime = t.stop()
-    if difftime < 1.1:
-        time.sleep(1.1-difftime)
+    if difftime < 1.2:
+        time.sleep(1.2-difftime)
 
-    response_currentdate = requests.request(
-        "GET", url, headers=headers, params=querystring_currentdate).json()
+
+    loop = True
+    while loop:
+        response_currentdate = requests.request(
+            "GET", url, headers=headers, params=querystring_currentdate).json()
+        if type(response_currentdate)!=dict:
+            loop = False
+        else:
+            time.sleep(0.1)
 
     t.start()
+
 
     response_week = {}
 
@@ -95,6 +117,8 @@ def dashboard(request):
 
     # Algoritmo que crea un nuevo diccionario con la diferencia entre
     #   el response de 7 días atrás y actual para todas las keys
+
+
 
     for key in response_currentdate[0]:
         if key == "date":
@@ -147,11 +171,18 @@ def dashboard(request):
         querystring_countrydata = {"code":selected_country_id}
 
         difftime = t.stop()
-        if difftime < 1.1:
-            time.sleep(1.1-difftime)
+        if difftime < 1.2:
+            time.sleep(1.2-difftime)
 
-        response_countrydata = requests.request(
-            "GET", url_countrydata, headers=headers, params=querystring_countrydata).json()
+
+        loop = True
+        while loop:
+            response_countrydata = requests.request(
+                "GET", url_countrydata, headers=headers, params=querystring_countrydata).json()
+            if type(response_countrydata)!=dict:
+                loop = False
+            else:
+                time.sleep(0.1)
 
         t.start()
 
@@ -163,15 +194,21 @@ def dashboard(request):
 
         querystring_countrydaily = {"date":"2020-06-16","code":selected_country_id}
 
-        difftime = t.stop()
-        if difftime < 1.1:
-            time.sleep(1.1-difftime)
 
-        response_countrydaily = requests.request(
-            "GET", url_countrydaily, headers=headers, params=querystring_countrydaily).json()
+        difftime = t.stop()
+        if difftime < 1.2:
+            time.sleep(1.2-difftime)
+
+        loop = True
+        while loop:
+            response_countrydaily = requests.request(
+                "GET", url_countrydaily, headers=headers, params=querystring_countrydaily).json()
+            if type(response_countrydaily)!=dict:
+                loop = False
+            else:
+                time.sleep(0.1)
 
         t.start()
-
 
 
         # Obtención datos de response
@@ -195,8 +232,6 @@ def dashboard(request):
             recuperados_dia_pais = "No hay datos"
             muertes_dia_pais = "No hay datos"
             activos_dia_pais = "No hay datos"
-
-
 
 
         # Traducción del país seleccionado al español

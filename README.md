@@ -47,8 +47,10 @@ los endpoints tienen la información necesaria.
 Para este proyecto se usa una versión Free de la API, con limitación de 1 request por segundo.
 Debido a esto hay un tiempo de espera mínimo de unos 4-6 segundos en la página principal del dashboard.
 Se ha implementado un sistema de espera para cumplir las restricciones con el menor tiempo de espera para el usuario.    
+A pesar de este sistema, a veces sigue devolviendo una "Too many requests" response, por lo que
+se debe esperar unos segundos y volver a actualizar.
 En caso de ser una web operativa se habría optado por una versión de pago de la API para acelerar
-el tiempo de carga.
+el tiempo de carga y evitar cualquier problemático de este tipo.
 
 
 ## Quick Start
