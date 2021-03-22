@@ -163,6 +163,9 @@ body {
   text-decoration: underline;
 }
 
+.fecha {
+  margin-top: 40px;
+}
 
 @media (max-width: 500px) {
   .countrydata {
